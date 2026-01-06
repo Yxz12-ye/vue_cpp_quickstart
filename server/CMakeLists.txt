@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(CppTemplate
+project(BackendServiceTemplate
     VERSION 0.1.0
     DESCRIPTION "Lightweight cross-platform C++ template"
     LANGUAGES CXX
@@ -28,7 +28,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 # ============================================================================
 option(ENABLE_WARNINGS "Enable compiler warnings" ON)
 option(ENABLE_TESTING "Enable testing" OFF)
-option(CMAKE_USE_VCPKG "Use vcpkg package manager" OFF)
+option(CMAKE_USE_VCPKG "Use vcpkg package manager" ON)
 
 # ============================================================================
 # Vcpkg Support (Optional)
@@ -66,6 +66,17 @@ set(HEADERS
 )
 
 # ============================================================================
+# Find Packages (Optional)
+# ============================================================================
+
+if(CMAKE_USE_VCPKG)
+    # for spdlog
+    find_package(spdlog CONFIG REQUIRED)
+    # for drogon
+    find_package(Drogon CONFIG REQUIRED)
+endif()
+
+# ============================================================================
 # Target
 # ============================================================================
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
@@ -77,6 +88,11 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 
 if(ENABLE_WARNINGS)
     target_link_libraries(${PROJECT_NAME} PRIVATE project_warnings)
+endif()
+
+if(CMAKE_USE_VCPKG)
+    target_link_libraries(${PROJECT_NAME} PRIVATE Drogon::Drogon)
+    target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog)
 endif()
 
 # ============================================================================

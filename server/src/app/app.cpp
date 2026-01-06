@@ -7,6 +7,7 @@
 #include "config.hpp"
 
 int App::run(int argc, char* argv[]) {
+    Logger::init(PROJECT_NAME);
     std::vector<std::string> args(argv, argv + argc);
     Logger::setLevel(Logger::Level::DEBUG);
 

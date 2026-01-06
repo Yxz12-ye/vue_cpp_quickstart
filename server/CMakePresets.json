@@ -46,6 +46,15 @@
             }
         },
         {
+            "name": "ninja-clang-cl",
+            "hidden": true,
+            "generator": "Ninja",
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "clang-cl",
+                "CMAKE_CXX_COMPILER": "clang-cl"
+            }
+        },
+        {
             "name": "ninja-gcc",
             "hidden": true,
             "generator": "Ninja",
@@ -93,6 +102,24 @@
             "inherits": [
                 "base",
                 "msvc",
+                "release"
+            ]
+        },
+        {
+            "name": "win-clang-cl-debug",
+            "displayName": "Windows Clang-cl Debug",
+            "inherits": [
+                "base",
+                "ninja-clang-cl",
+                "debug"
+            ]
+        },
+        {
+            "name": "win-clang-cl-release",
+            "displayName": "Windows Clang-cl Release",
+            "inherits": [
+                "base",
+                "ninja-clang-cl",
                 "release"
             ]
         },
@@ -199,6 +226,14 @@
         {
             "name": "macos-clang-release",
             "configurePreset": "macos-clang-release"
+        },
+        {
+            "name": "win-clang-cl-debug",
+            "configurePreset": "win-clang-cl-debug"
+        },
+        {
+            "name": "win-clang-cl-release",
+            "configurePreset": "win-clang-cl-release"
         }
     ]
 }
