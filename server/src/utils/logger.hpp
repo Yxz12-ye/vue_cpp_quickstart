@@ -14,7 +14,7 @@ public:
         DEBUG,    // 调试信息
         INFO,     // 一般信息
         WARNING,  // 警告信息
-        ERROR     // 错误信息
+        ERROR_    // 错误信息
     };
 
     // 初始化日志系统（程序启动时调用一次）

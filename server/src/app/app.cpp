@@ -1,7 +1,9 @@
 #include "app.hpp"
 
+#include <drogon/HttpAppFramework.h>
 #include <iostream>
 
+#include "../controllers/testCtrl.hpp"
 #include "../utils/logger.hpp"
 #include "../utils/string_utils.hpp"
 #include "config.hpp"
@@ -31,6 +33,10 @@ int App::run(int argc, char* argv[]) {
 
     Logger::debug("Application initialized successfully");
     Logger::info("Ready to process commands");
+
+    drogon::app().addListener("0.0.0.0", 80);
+
+    drogon::app().run();
 
     return 0;
 }

@@ -1,44 +1,44 @@
-<script setup>
-defineProps({
-  msg: {
-    type: String,
-    required: true,
-  },
-})
-</script>
-
 <template>
-  <div class="greetings">
-    <h1 class="green">{{ msg }}</h1>
-    <h3>
-      You’ve successfully created a project with
-      <a href="https://vite.dev/" target="_blank" rel="noopener">Vite</a> +
-      <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue 3</a>.
-    </h3>
-  </div>
+  <CustomButton type="default" @click="fetchFromBack">click me</CustomButton>
+  <br>
+  <label>{{ myMsg }}</label>
 </template>
 
-<style scoped>
-h1 {
-  font-weight: 500;
-  font-size: 2.6rem;
-  position: relative;
-  top: -10px;
-}
+<script setup>
+import { handleError, ref } from 'vue';
+import CustomButton from './CustomButton.vue';
+import axios from 'axios';
 
-h3 {
-  font-size: 1.2rem;
-}
+let myMsg = ref("hello!")
+const click_type = ["get_msg", "set_msg"]
+const fetchFromBack = async () => {
 
-.greetings h1,
-.greetings h3 {
-  text-align: center;
-}
+  console.log("hello")
 
-@media (min-width: 1024px) {
-  .greetings h1,
-  .greetings h3 {
-    text-align: left;
+  try {
+    const response = await axios.get('/api/test')
+    const msg = response.data
+    console.log(msg["msg"]);
+    myMsg.value = msg['msg']
+
+  } catch (error) { // 这里是 error
+    // error.value = err.message // ❌ 应该用 error
+    // console.error('获取失败:', err) // ❌ 应该用 error
+
+    // ✅ 正确的做法
+    // 如果 error.value 是一个响应式变量，例如 ref()
+    if (error.response && error.response.data && error.response.data.message) {
+      // 如果后端返回了错误信息
+      // error.value = error.response.data.message;
+      console.error('获取失败:', error.response.data.message);
+    } else if (error.message) {
+      // error.value = error.message;
+      console.error('获取失败:', error.message);
+    } else {
+      // error.value = '未知错误';
+      console.error('获取失败:', error);
+    }
   }
+
 }
-</style>
+</script>

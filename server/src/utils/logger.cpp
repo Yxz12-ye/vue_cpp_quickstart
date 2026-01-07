@@ -54,7 +54,7 @@ spdlog::level::level_enum Logger::toSpdlogLevel(Level level) {
         return spdlog::level::info;
     case Level::WARNING:
         return spdlog::level::warn;
-    case Level::ERROR:
+    case Level::ERROR_:
         return spdlog::level::err;
     default:
         return spdlog::level::info;
