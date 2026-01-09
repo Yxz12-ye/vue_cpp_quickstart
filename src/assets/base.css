@@ -19,6 +19,15 @@
   --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
   --vt-c-text-dark-1: var(--vt-c-white);
   --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+
+  /* Custom theme colors */
+  --bg1: #071028;
+  --bg2: #0b1830;
+  --accent: #7c3aed;
+  --muted: #98a6bf;
+  --success: #10b981;
+  --error: #ef4444;
+  --local: #3b82f6;
 }
 
 /* semantic color variables for this project */
@@ -60,8 +69,8 @@
 
 body {
   min-height: 100vh;
-  color: var(--color-text);
-  background: var(--color-background);
+  color: #e6eef8;
+  background: radial-gradient(circle at 10% 10%, rgba(124, 58, 237, 0.08), transparent 12%), linear-gradient(180deg, #071028, #0b1830);
   transition:
     color 0.5s,
     background-color 0.5s;

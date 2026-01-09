@@ -31,8 +31,6 @@
         </transition>
       </div>
     </div>
-
-    <div class="attribution">Built with ❤️ — Vue + Vite + Drogon</div>
   </div>
 </template>
 
@@ -109,14 +107,20 @@ const clearHistory = () => {
 }
 
 .hero {
-  min-height: 80vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle at 10% 10%, rgba(124, 58, 237, 0.08), transparent 12%), linear-gradient(180deg, var(--bg1), var(--bg2));
-  color: #e6eef8;
-  padding: 3rem 1rem;
+  padding: 2rem 1rem;
   flex-direction: column;
+  gap: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    min-height: auto;
+    padding: 2rem;
+  }
 }
 
 .card {
@@ -237,12 +241,6 @@ h1 {
 .msg-content {
   word-break: break-word;
   line-height: 1.5;
-}
-
-.attribution {
-  margin-top: 1rem;
-  color: var(--muted);
-  font-size: 0.9rem;
 }
 
 .fade-enter-active,

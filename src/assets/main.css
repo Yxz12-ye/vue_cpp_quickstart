@@ -30,6 +30,11 @@ a,
   #app {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr auto;
     padding: 0 2rem;
+  }
+
+  .app-footer {
+    grid-column: 1 / -1;
   }
 }
