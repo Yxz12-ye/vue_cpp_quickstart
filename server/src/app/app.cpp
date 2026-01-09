@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "../controllers/testCtrl.hpp"
+#include "../utils/config_reader.hpp"
 #include "../utils/logger.hpp"
 #include "../utils/string_utils.hpp"
 #include "config.hpp"
@@ -33,6 +34,11 @@ int App::run(int argc, char* argv[]) {
 
     Logger::debug("Application initialized successfully");
     Logger::info("Ready to process commands");
+
+    // 从外部配置文件读取文档根目录（参见 src/utils/config_reader.*）
+    drogon::app().setDocumentRoot(ConfigReader::getDocumentRoot());
+
+    Logger::info("Working Directory: " + ConfigReader::getDocumentRoot());
 
     drogon::app().addListener("0.0.0.0", 80);
 

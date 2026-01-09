@@ -57,6 +57,7 @@ set(SOURCES
     src/app/app.cpp
     src/utils/logger.cpp
     src/utils/string_utils.cpp
+    src/utils/config_reader.cpp
     src/controllers/testCtrl.cpp
 )
 
@@ -64,6 +65,7 @@ set(HEADERS
     src/app/app.hpp
     src/utils/logger.hpp
     src/utils/string_utils.hpp
+    src/utils/config_reader.hpp
     src/controllers/testCtrl.hpp
 )
 
