@@ -11,7 +11,7 @@
           <CustomButton type="primary" @click="fetchFromBack" :disabled="loading">
             {{ loading ? '请求中...' : '从后端获取消息' }}
           </CustomButton>
-          <CustomButton type="ghost" @click="addLocalMessage">本地问候</CustomButton>
+          <CustomButton type="info" @click="addLocalMessage">本地问候</CustomButton>
           <CustomButton type="danger" @click="clearHistory" v-if="messageHistory.length > 0">清空历史</CustomButton>
         </div>
 

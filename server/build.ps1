@@ -33,11 +33,24 @@ if ($Help) {
   -Clean                      清理旧的构建文件
   -Help                       显示此帮助信息
 
+自动检测编译器 (优先级):
+  1. clang-cl + Ninja     (最快，推荐)
+  2. MSVC + Ninja         (快)
+  3. MSVC + VS Generator  (默认，较慢)
+  4. Clang
+  5. GCC
+
 示例:
-  .\build.ps1                           # Debug 构建
+  .\build.ps1                           # Debug 构建 (自动选择编译器)
   .\build.ps1 -BuildType Release        # Release 构建
   .\build.ps1 -Clean                    # 清理后进行 Debug 构建
   .\build.ps1 -BuildType Release -Clean # 清理后进行 Release 构建
+
+手动选择预设 (绕过自动检测):
+  cmake --preset win-clang-cl-debug
+  cmake --preset win-msvc-ninja-debug
+  cmake --preset win-msvc-vs-debug
+  cmake --build --preset win-clang-cl-debug
 
 "@
     exit 0
@@ -65,7 +78,11 @@ Write-Success "✓ 找到 CMake: $cmakeVersion"
 
 # 检查编译器
 $compiler = $null
-if (Get-Command clang++ -ErrorAction SilentlyContinue) {
+if (Get-Command clang-cl -ErrorAction SilentlyContinue) {
+    $compiler = "clang-cl"
+    $clangVersion = clang-cl --version | Select-Object -First 1
+    Write-Success "✓ 找到 Clang-CL: $clangVersion"
+} elseif (Get-Command clang++ -ErrorAction SilentlyContinue) {
     $compiler = "clang"
     $clangVersion = clang++ --version | Select-Object -First 1
     Write-Success "✓ 找到 Clang: $clangVersion"
@@ -95,12 +112,19 @@ Write-Host ""
 # 选择 Preset
 $buildTypeLower = $BuildType.ToLower()
 
-if ($compiler -eq "clang") {
+if ($compiler -eq "clang-cl") {
+    $preset = "win-clang-cl-$buildTypeLower"
+} elseif ($compiler -eq "clang") {
     $preset = "win-clang-$buildTypeLower"
 } elseif ($compiler -eq "gcc") {
     $preset = "win-gcc-$buildTypeLower"
 } else {
-    $preset = "win-msvc-$buildTypeLower"
+    # MSVC: 优先使用 Ninja
+    if (Get-Command ninja -ErrorAction SilentlyContinue) {
+        $preset = "win-msvc-ninja-$buildTypeLower"
+    } else {
+        $preset = "win-msvc-vs-$buildTypeLower"
+    }
 }
 
 Write-Info "使用预设: $preset"
