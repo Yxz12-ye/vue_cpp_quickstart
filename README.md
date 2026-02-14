@@ -36,3 +36,23 @@ npm run dev
 ```sh
 npm run build
 ```
+
+## Desktop App (Tauri)
+
+Install Rust first (required by Tauri):
+
+```sh
+rustup --version
+```
+
+Run the desktop app in development mode:
+
+```sh
+npm run tauri:dev
+```
+
+Build the desktop installer/bundle:
+
+```sh
+npm run tauri:build
+```

@@ -16,6 +16,7 @@ export default defineConfig({
     },
   },
   server: {
+    strictPort: true,
     proxy: {
       '/test': {
         target: 'http://127.0.0.1:80', // 后端地址
